@@ -29,7 +29,8 @@ counts = data.frame(expr)
 d0 <- DGEList(counts)
 d0 <- calcNormFactors(d0)
 # using function from edgeR
-keep = filterByExpr(d0, group=type)
+# keep = filterByExpr(d0, group=type) # Suppl. Fig. S2 and S3
+keep = filterByExpr(d0, min.prop=0.9) # this min.prop filter generates gene lists of similar size to those based on filters applied to TPM normalized counts (see TCGA_DEG.R) for downstream analysis (Suppl. Fig. S11 and S12).
 d = d0[keep,]
 gene_metadata = gene_metadata[keep,]
 mm = model.matrix(~ 0 + type + subj)
